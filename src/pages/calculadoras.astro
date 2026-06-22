@@ -1,0 +1,27 @@
+---
+import AppLayout from '../layouts/AppLayout.astro';
+import Calculators from '../components/Calculators';
+import models from '../data/models.json';
+---
+
+<AppLayout title="Calculadoras — Ranking IA" description="Calcula el coste mensual, contexto necesario y tiempo de generación para cualquier modelo de IA.">
+  <section class="fade-in">
+    <h2 class="section-title text-2xl font-bold text-gold font-mono tracking-wider mb-8 uppercase" data-i18n="calc_h2">Calculadoras</h2>
+    <Calculators data={models} client:load />
+  </section>
+</AppLayout>
+
+<script>
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { rootMargin: '0px 0px -10% 0px' }
+  );
+  document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
+</script>

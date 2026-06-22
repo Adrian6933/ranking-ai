@@ -1,0 +1,147 @@
+---
+import '../styles/global.css';
+import Aside from '../components/Aside';
+import TopBar from '../components/TopBar';
+import CommandPalette from '../components/CommandPalette';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = 'Ranking de Modelos de IA', description = 'Comparativa completa de modelos de IA: pruebas, precios, velocidad y más.' } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="es" data-theme="dark" data-lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_ES" />
+    <meta name="theme-color" content="#0A0A0A" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <script is:inline>
+      (function() {
+        var t = localStorage.getItem('rankingia_theme');
+        if (t === 'light') document.documentElement.setAttribute('data-theme', 'light');
+        var l = localStorage.getItem('rankingia_lang');
+        if (l === 'en') document.documentElement.setAttribute('data-lang', 'en');
+      })();
+    </script>
+    <script is:inline>
+      var PAGE_I18N = {
+        'nav_inicio': { es: 'Inicio', en: 'Home' },
+        'nav_ranking': { es: 'Ranking', en: 'Ranking' },
+        'nav_graficas': { es: 'Gráficas', en: 'Charts' },
+        'nav_comparar': { es: 'Comparar', en: 'Compare' },
+        'nav_calculadoras': { es: 'Calculadoras', en: 'Calculators' },
+        'nav_metodologia': { es: 'Metodología', en: 'Methodology' },
+        'nav_glosario': { es: 'Glosario', en: 'Glossary' },
+        'nav_acerca': { es: 'Acerca de', en: 'About' },
+        'index_destacados': { es: 'Destacados', en: 'Highlights' },
+        'index_explora': { es: 'Explora', en: 'Explore' },
+        'index_ranking_card': { es: 'Tabla completa ordenable y filtrable', en: 'Sortable and filterable full table' },
+        'index_graficas_card': { es: 'Coste, velocidad, contexto y más', en: 'Cost, speed, context and more' },
+        'index_comparar_card': { es: '2-4 modelos lado a lado', en: '2-4 models side by side' },
+        'index_calc_card': { es: 'Coste mensual, contexto, velocidad', en: 'Monthly cost, context, speed' },
+        'index_footer1': { es: 'Datos contrastados con Artificial Analysis, SWE-bench, LMArena, LiveBench, Terminal-Bench, GPQA Diamond, SciCode y docs oficiales', en: 'Data cross-referenced with Artificial Analysis, SWE-bench, LMArena, LiveBench, Terminal-Bench, GPQA Diamond, SciCode and official docs' },
+        'index_footer2': { es: 'Pulsa ⌘K para buscar · revisado junio 2026', en: 'Press ⌘K to search · reviewed June 2026' },
+        'ranking_h2': { es: 'Ranking completo', en: 'Full ranking' },
+        'ranking_tabla': { es: '📊 Tabla', en: '📊 Table' },
+        'ranking_heatmap': { es: '🔥 Mapa de calor', en: '🔥 Heatmap' },
+        'graficas_tier': { es: 'Lista por niveles', en: 'Tier list' },
+        'graficas_cost': { es: 'Coste vs rendimiento', en: 'Cost vs performance' },
+        'graficas_speed': { es: 'Velocidad (tokens/s)', en: 'Speed (tokens/s)' },
+        'graficas_pricing': { es: 'Comparativa de precios', en: 'Price comparison' },
+        'graficas_context': { es: 'Ventana de contexto', en: 'Context window' },
+        'graficas_providers': { es: 'Proveedores', en: 'Providers' },
+        'graficas_evolution': { es: 'Evolución', en: 'Evolution' },
+        'comparar_h2': { es: 'Comparar modelos', en: 'Compare models' },
+        'calc_h2': { es: 'Calculadoras', en: 'Calculators' },
+        'metod_h2': { es: 'Metodología', en: 'Methodology' },
+        'glosario_h2': { es: 'Glosario', en: 'Glossary' },
+        'glosario_benchmarks': { es: 'Benchmarks', en: 'Benchmarks' },
+        'glosario_elegir': { es: 'Cómo elegir un modelo', en: 'How to choose a model' },
+        'glosario_swe_desc': { es: 'Mide programación real: porcentaje de incidencias auténticas resueltas en repositorios reales (Python, JS, etc.). La variante "Verified" filtra ejemplos ambiguos. Es la prueba de referencia para capacidad de software.', en: 'Measures real-world programming: percentage of authentic issues solved in real repositories (Python, JS, etc.). The "Verified" variant filters ambiguous examples. It is the reference test for software capability.' },
+        'glosario_swe_range': { es: 'Rango típico: 0–95% · Fuente: swebench.com', en: 'Typical range: 0–95% · Source: swebench.com' },
+        'glosario_gpqa_desc': { es: 'Razonamiento científico difícil con preguntas de nivel experto en física, química y biología. Diseñado para ser resistente a búsqueda web y memorización. "Diamond" es el subconjunto más difícil.', en: 'Difficult scientific reasoning with expert-level questions in physics, chemistry and biology. Designed to be resistant to web search and memorization. "Diamond" is the hardest subset.' },
+        'glosario_gpqa_range': { es: 'Rango típico: 30–95% · Fuente: github.com/idavidrein/gpqa', en: 'Typical range: 30–95% · Source: github.com/idavidrein/gpqa' },
+        'glosario_terminal_desc': { es: 'Evalúa la capacidad del modelo para actuar como agente: usar terminal, ejecutar comandos, corregir errores y completar tareas largas en un entorno real.', en: 'Evaluates the model\'s ability to act as an agent: use terminal, execute commands, fix errors and complete long tasks in a real environment.' },
+        'glosario_terminal_range': { es: 'Rango típico: 5–65% · Fuente: terminal-bench.com', en: 'Typical range: 5–65% · Source: terminal-bench.com' },
+        'glosario_scicode_desc': { es: 'Programación científica: problemas técnicos de ciencia computacional, física y matemáticas. Mide razonamiento aplicado a código, no solo sintaxis.', en: 'Scientific programming: technical problems in computational science, physics and mathematics. Measures reasoning applied to code, not just syntax.' },
+        'glosario_scicode_range': { es: 'Rango típico: 10–65% · Fuente: scicode-eval.com', en: 'Typical range: 10–65% · Source: scicode-eval.com' },
+        'glosario_livecode_desc': { es: 'Programación competitiva con problemas recientes para reducir la contaminación de datos de entrenamiento. Menos sesgo de memorización que otros benchmarks de código.', en: 'Competitive programming with recent problems to reduce training data contamination. Less memorization bias than other code benchmarks.' },
+        'glosario_livecode_range': { es: 'Rango típico: 5–60% · Fuente: livecodebench.github.io', en: 'Typical range: 5–60% · Source: livecodebench.github.io' },
+        'glosario_lmarena_desc': { es: 'Preferencia humana mediante batallas ciegas entre modelos. Útil como señal secundaria: no mide capacidad objetiva, sino percepción de calidad.', en: 'Human preference through blind battles between models. Useful as a secondary signal: it doesn\'t measure objective capability, but quality perception.' },
+        'glosario_lmarena_src': { es: 'Fuente: lmarena.ai', en: 'Source: lmarena.ai' },
+        'glosario_prog_title': { es: '📌 Si necesitas programar', en: '📌 If you need to code' },
+        'glosario_prog_desc': { es: 'Mira <span class="text-gold">SWE-bench</span> por encima del resto. Un modelo con 80%+ resuelve la mayoría de incidencias reales. Si además necesitas agentes que ejecuten código, combina con <span class="text-gold">Terminal-Bench</span>.', en: 'Look at <span class="text-gold">SWE-bench</span> above all else. A model with 80%+ solves most real issues. If you also need agents that execute code, combine with <span class="text-gold">Terminal-Bench</span>.' },
+        'glosario_razon_title': { es: '🧠 Si necesitas razonamiento', en: '🧠 If you need reasoning' },
+        'glosario_razon_desc': { es: 'Mira <span class="text-gold">GPQA Diamond</span>. Puntuaciones 70%+ indican capacidad experta en ciencias. <span class="text-gold">SciCode</span> añade razonamiento aplicado a código técnico.', en: 'Look at <span class="text-gold">GPQA Diamond</span>. Scores 70%+ indicate expert-level scientific capability. <span class="text-gold">SciCode</span> adds reasoning applied to technical code.' },
+        'glosario_budget_title': { es: '💰 Si tienes presupuesto ajustado', en: '💰 If you have a tight budget' },
+        'glosario_budget_desc': { es: 'Mira la <a href="/graficas#cost-performance" class="text-gold hover:underline">gráfica coste-rendimiento</a> y la <span class="text-gold"> frontera de Pareto</span> (línea dorada). Los modelos sobre la línea son los más eficientes. Usa la <a href="/calculadoras" class="text-gold hover:underline">calculadora de coste</a> para estimar gasto mensual.', en: 'Look at the <a href="/graficas#cost-performance" class="text-gold hover:underline">cost-performance chart</a> and the <span class="text-gold"> Pareto frontier</span> (gold line). Models above the line are the most efficient. Use the <a href="/calculadoras" class="text-gold hover:underline">cost calculator</a> to estimate monthly spend.' },
+        'glosario_ctx_title': { es: '📄 Si necesitas contexto largo', en: '📄 If you need long context' },
+        'glosario_ctx_desc': { es: 'Mira <span class="text-gold">ventana de contexto</span>. 1M+ tokens permite documentos largos. Usa la <a href="/calculadoras" class="text-gold hover:underline">calculadora de contexto</a> para ver si tu documento cabe.', en: 'Look at <span class="text-gold">context window</span>. 1M+ tokens allows long documents. Use the <a href="/calculadoras" class="text-gold hover:underline">context calculator</a> to see if your document fits.' },
+        'acerca_h2': { es: 'Acerca de', en: 'About' },
+        'acerca_que_title': { es: 'Qué es', en: 'What it is' },
+        'acerca_que_desc': { es: 'Ranking IA es una comparativa independiente de modelos de lenguaje. Recopila datos de múltiples fuentes públicas y los presenta en español con una fórmula de puntuación transparente y ajustable. No hay intereses comerciales ni patrocinios de ningún proveedor.', en: 'Ranking IA is an independent comparison of language models. It collects data from multiple public sources and presents it with a transparent and adjustable scoring formula. There are no commercial interests or sponsorships from any provider.' },
+        'acerca_metodo_title': { es: 'Metodología de recopilación', en: 'Data collection methodology' },
+        'acerca_metodo_desc': { es: 'Los datos se extraen de fuentes independientes (Artificial Analysis, SWE-bench, LMArena, LiveBench, Terminal-Bench, GPQA Diamond, SciCode) y se cruzan con la documentación oficial de cada proveedor para precios, contexto y licencias. Cuando un dato no está disponible, se deja como nulo y se penaliza la confianza del modelo en la puntuación compuesta.', en: 'Data is extracted from independent sources (Artificial Analysis, SWE-bench, LMArena, LiveBench, Terminal-Bench, GPQA Diamond, SciCode) and cross-referenced with each provider\'s official documentation for prices, context and licenses. When data is not available, it is left as null and the model\'s confidence is penalized in the composite score.' },
+        'acerca_freq_title': { es: 'Frecuencia de actualización', en: 'Update frequency' },
+        'acerca_freq_desc': { es: 'Los datos se revisan mensualmente. La fecha de la última revisión aparece en el hero y en el footer. Los modelos nuevos se añaden cuando hay datos suficientes de al menos 3 benchmarks independientes.', en: 'Data is reviewed monthly. The date of the last review appears in the hero and footer. New models are added when there is sufficient data from at least 3 independent benchmarks.' },
+        'acerca_limit_title': { es: 'Limitaciones', en: 'Limitations' },
+        'acerca_limit_1': { es: 'Los benchmarks no capturan toda la capacidad de un modelo (creatividad, estilo, tono).', en: 'Benchmarks do not capture all of a model\'s capability (creativity, style, tone).' },
+        'acerca_limit_2': { es: 'Los precios pueden cambiar sin previo aviso. Verifica siempre en la fuente oficial.', en: 'Prices may change without notice. Always verify with the official source.' },
+        'acerca_limit_3': { es: 'La velocidad depende del proveedor y puede variar por región y carga.', en: 'Speed depends on the provider and may vary by region and load.' },
+        'acerca_limit_4': { es: 'El ranking es una guía, no una verdad absoluta. El mejor modelo depende de tu caso de uso.', en: 'The ranking is a guide, not absolute truth. The best model depends on your use case.' },
+        'acerca_fuentes_title': { es: 'Fuentes', en: 'Sources' },
+        'acerca_fuentes_docs': { es: 'Docs oficiales de cada proveedor', en: 'Official docs from each provider' },
+        'acerca_changelog_title': { es: 'Changelog', en: 'Changelog' },
+        'acerca_changelog_v2': { es: 'v2.0 · jun 2026 — Multi-página, aside, command palette, comparador, calculadoras, favoritos, modo claro', en: 'v2.0 · Jun 2026 — Multi-page, sidebar, command palette, comparator, calculators, favorites, light mode' },
+        'acerca_changelog_v1': { es: 'v1.0 · jun 2026 — Versión inicial: tabla, gráficas, metodología', en: 'v1.0 · Jun 2026 — Initial version: table, charts, methodology' },
+        'favoritos_h2': { es: 'Favoritos', en: 'Favorites' },
+      };
+      function translatePage() {
+        var lang = document.documentElement.getAttribute('data-lang') || 'es';
+        document.querySelectorAll('[data-i18n]').forEach(function(el) {
+          var key = el.getAttribute('data-i18n');
+          var entry = PAGE_I18N[key];
+          if (entry) el.innerHTML = entry[lang] || entry.es;
+        });
+      }
+      translatePage();
+      window.addEventListener('rankingia-lang-changed', translatePage);
+    </script>
+  </head>
+  <body class="min-h-screen">
+    <Aside client:load />
+    <div id="app-content" class="md:ml-[256px] transition-[margin] duration-200">
+      <TopBar client:load />
+      <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <slot />
+      </main>
+    </div>
+    <CommandPalette client:idle />
+
+    <script is:inline>
+      function updateMargin() {
+        var collapsed = localStorage.getItem('rankingia_aside_collapsed') === 'true';
+        var content = document.getElementById('app-content');
+        if (content) {
+          content.style.marginLeft = window.innerWidth > 768 ? (collapsed ? '60px' : '256px') : '0';
+        }
+      }
+      updateMargin();
+      window.addEventListener('resize', updateMargin);
+      window.addEventListener('aside-control', updateMargin);
+    </script>
+  </body>
+</html>

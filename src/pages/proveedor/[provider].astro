@@ -1,0 +1,19 @@
+---
+import AppLayout from '../../layouts/AppLayout.astro';
+import ProviderProfile from '../../components/ProviderProfile';
+import models from '../../data/models.json';
+
+export function getStaticPaths() {
+  const providers = [...new Set(models.map(m => m.provider))];
+  return providers.map(p => ({
+    params: { provider: p },
+    props: { providerName: p, providerModels: models.filter(m => m.provider === p) },
+  }));
+}
+
+const { providerName, providerModels } = Astro.props;
+---
+
+<AppLayout title={`${providerName} — Ranking IA`} description={`${providerName}: ${providerModels.length} modelos analizados. Benchmarks, precios y evolución.`}>
+  <ProviderProfile provider={providerName} models={providerModels} allModels={models} client:load />
+</AppLayout>

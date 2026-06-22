@@ -1,0 +1,120 @@
+---
+import AppLayout from '../layouts/AppLayout.astro';
+---
+
+<AppLayout title="Glosario — Ranking IA" description="Explicación de cada benchmark, cómo elegir un modelo y perfiles de proveedores.">
+  <section class="fade-in">
+    <h2 class="section-title text-2xl font-bold text-gold font-mono tracking-wider mb-8 uppercase" data-i18n="glosario_h2">Glosario</h2>
+
+    <div class="space-y-6">
+      <div>
+        <h3 class="text-gold text-sm font-mono font-bold uppercase tracking-wider mb-4">// <span data-i18n="glosario_benchmarks">Benchmarks</span></h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="rounded-lg border border-dark-border bg-dark-card/50 p-4">
+            <div class="text-fg font-mono font-bold text-sm">SWE-bench</div>
+            <div class="text-gray-text text-xs font-mono mt-2 leading-relaxed" data-i18n="glosario_swe_desc">
+              Mide programación real: porcentaje de incidencias auténticas resueltas en repositorios reales (Python, JS, etc.).
+              La variante "Verified" filtra ejemplos ambiguos. Es la prueba de referencia para capacidad de software.
+            </div>
+            <div class="mt-2 text-xs text-gold font-mono" data-i18n="glosario_swe_range">Rango típico: 0–95% · Fuente: swebench.com</div>
+          </div>
+
+          <div class="rounded-lg border border-dark-border bg-dark-card/50 p-4">
+            <div class="text-fg font-mono font-bold text-sm">GPQA Diamond</div>
+            <div class="text-gray-text text-xs font-mono mt-2 leading-relaxed" data-i18n="glosario_gpqa_desc">
+              Razonamiento científico difícil con preguntas de nivel experto en física, química y biología.
+              Diseñado para ser resistente a búsqueda web y memorización. "Diamond" es el subconjunto más difícil.
+            </div>
+            <div class="mt-2 text-xs text-gold font-mono" data-i18n="glosario_gpqa_range">Rango típico: 30–95% · Fuente: github.com/idavidrein/gpqa</div>
+          </div>
+
+          <div class="rounded-lg border border-dark-border bg-dark-card/50 p-4">
+            <div class="text-fg font-mono font-bold text-sm">Terminal-Bench</div>
+            <div class="text-gray-text text-xs font-mono mt-2 leading-relaxed" data-i18n="glosario_terminal_desc">
+              Evalúa la capacidad del modelo para actuar como agente: usar terminal, ejecutar comandos,
+              corregir errores y completar tareas largas en un entorno real.
+            </div>
+            <div class="mt-2 text-xs text-gold font-mono" data-i18n="glosario_terminal_range">Rango típico: 5–65% · Fuente: terminal-bench.com</div>
+          </div>
+
+          <div class="rounded-lg border border-dark-border bg-dark-card/50 p-4">
+            <div class="text-fg font-mono font-bold text-sm">SciCode</div>
+            <div class="text-gray-text text-xs font-mono mt-2 leading-relaxed" data-i18n="glosario_scicode_desc">
+              Programación científica: problemas técnicos de ciencia computacional, física y matemáticas.
+              Mide razonamiento aplicado a código, no solo sintaxis.
+            </div>
+            <div class="mt-2 text-xs text-gold font-mono" data-i18n="glosario_scicode_range">Rango típico: 10–65% · Fuente: scicode-eval.com</div>
+          </div>
+
+          <div class="rounded-lg border border-dark-border bg-dark-card/50 p-4">
+            <div class="text-fg font-mono font-bold text-sm">LiveCodeBench</div>
+            <div class="text-gray-text text-xs font-mono mt-2 leading-relaxed" data-i18n="glosario_livecode_desc">
+              Programación competitiva con problemas recientes para reducir la contaminación de datos de entrenamiento.
+              Menos sesgo de memorización que otros benchmarks de código.
+            </div>
+            <div class="mt-2 text-xs text-gold font-mono" data-i18n="glosario_livecode_range">Rango típico: 5–60% · Fuente: livecodebench.github.io</div>
+          </div>
+
+          <div class="rounded-lg border border-dark-border bg-dark-card/50 p-4">
+            <div class="text-fg font-mono font-bold text-sm">LMArena (Chatbot Arena)</div>
+            <div class="text-gray-text text-xs font-mono mt-2 leading-relaxed" data-i18n="glosario_lmarena_desc">
+              Preferencia humana mediante batallas ciegas entre modelos. Útil como señal secundaria:
+              no mide capacidad objetiva, sino percepción de calidad.
+            </div>
+            <div class="mt-2 text-xs text-gold font-mono" data-i18n="glosario_lmarena_src">Fuente: lmarena.ai</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h3 class="text-gold text-sm font-mono font-bold uppercase tracking-wider mb-4">// <span data-i18n="glosario_elegir">Cómo elegir un modelo</span></h3>
+        <div class="space-y-3">
+          <div class="rounded-lg border border-dark-border bg-dark-card/50 p-4">
+            <div class="text-fg font-mono font-bold text-sm" data-i18n="glosario_prog_title">📌 Si necesitas programar</div>
+            <div class="text-gray-text text-xs font-mono mt-2 leading-relaxed" data-i18n="glosario_prog_desc">
+              Mira <span class="text-gold">SWE-bench</span> por encima del resto. Un modelo con 80%+ resuelve la mayoría de incidencias reales.
+              Si además necesitas agentes que ejecuten código, combina con <span class="text-gold">Terminal-Bench</span>.
+            </div>
+          </div>
+          <div class="rounded-lg border border-dark-border bg-dark-card/50 p-4">
+            <div class="text-fg font-mono font-bold text-sm" data-i18n="glosario_razon_title">🧠 Si necesitas razonamiento</div>
+            <div class="text-gray-text text-xs font-mono mt-2 leading-relaxed" data-i18n="glosario_razon_desc">
+              Mira <span class="text-gold">GPQA Diamond</span>. Puntuaciones 70%+ indican capacidad experta en ciencias.
+              <span class="text-gold">SciCode</span> añade razonamiento aplicado a código técnico.
+            </div>
+          </div>
+          <div class="rounded-lg border border-dark-border bg-dark-card/50 p-4">
+            <div class="text-fg font-mono font-bold text-sm" data-i18n="glosario_budget_title">💰 Si tienes presupuesto ajustado</div>
+            <div class="text-gray-text text-xs font-mono mt-2 leading-relaxed" data-i18n="glosario_budget_desc">
+              Mira la <a href="/graficas#cost-performance" class="text-gold hover:underline">gráfica coste-rendimiento</a> y la
+              <span class="text-gold"> frontera de Pareto</span> (línea dorada). Los modelos sobre la línea son los más eficientes.
+              Usa la <a href="/calculadoras" class="text-gold hover:underline">calculadora de coste</a> para estimar gasto mensual.
+            </div>
+          </div>
+          <div class="rounded-lg border border-dark-border bg-dark-card/50 p-4">
+            <div class="text-fg font-mono font-bold text-sm" data-i18n="glosario_ctx_title">📄 Si necesitas contexto largo</div>
+            <div class="text-gray-text text-xs font-mono mt-2 leading-relaxed" data-i18n="glosario_ctx_desc">
+              Mira <span class="text-gold">ventana de contexto</span>. 1M+ tokens permite documentos largos.
+              Usa la <a href="/calculadoras" class="text-gold hover:underline">calculadora de contexto</a> para ver si tu documento cabe.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</AppLayout>
+
+<script>
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { rootMargin: '0px 0px -10% 0px' }
+  );
+  document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
+</script>

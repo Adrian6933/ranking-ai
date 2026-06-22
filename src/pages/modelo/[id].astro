@@ -1,0 +1,18 @@
+---
+import AppLayout from '../../layouts/AppLayout.astro';
+import ModelDetail from '../../components/ModelDetail';
+import models from '../../data/models.json';
+
+export function getStaticPaths() {
+  return models.map((m) => ({
+    params: { id: m.id },
+    props: { model: m },
+  }));
+}
+
+const { model } = Astro.props;
+---
+
+<AppLayout title={`${model.name} — Ranking IA`} description={`${model.name} de ${model.provider}: benchmarks, precios, velocidad, contexto y más.`}>
+  <ModelDetail model={model} allModels={models} client:load />
+</AppLayout>

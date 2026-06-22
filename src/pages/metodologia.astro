@@ -1,0 +1,28 @@
+---
+import AppLayout from '../layouts/AppLayout.astro';
+import Methodology from '../components/Methodology';
+import WeightCalculator from '../components/WeightCalculator';
+---
+
+<AppLayout title="Metodología — Ranking IA" description="Cómo se calcula el ranking: pesos, benchmarks, fuentes y calculadora interactiva.">
+  <section class="fade-in space-y-8">
+    <h2 class="section-title text-2xl font-bold text-gold font-mono tracking-wider mb-8 uppercase" data-i18n="metod_h2">Metodología</h2>
+    <Methodology client:load />
+    <WeightCalculator client:load />
+  </section>
+</AppLayout>
+
+<script>
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { rootMargin: '0px 0px -10% 0px' }
+  );
+  document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
+</script>

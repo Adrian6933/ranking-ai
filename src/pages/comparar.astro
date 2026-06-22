@@ -1,0 +1,27 @@
+---
+import AppLayout from '../layouts/AppLayout.astro';
+import ModelCompare from '../components/ModelCompare';
+import models from '../data/models.json';
+---
+
+<AppLayout title="Comparar modelos — Ranking IA" description="Compara 2-4 modelos de IA lado a lado: rendimiento, precio, velocidad y más.">
+  <section class="fade-in">
+    <h2 class="section-title text-2xl font-bold text-gold font-mono tracking-wider mb-8 uppercase" data-i18n="comparar_h2">Comparar modelos</h2>
+    <ModelCompare data={models} client:load />
+  </section>
+</AppLayout>
+
+<script>
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { rootMargin: '0px 0px -10% 0px' }
+  );
+  document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
+</script>

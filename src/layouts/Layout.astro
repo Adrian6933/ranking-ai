@@ -1,23 +1,27 @@
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
-</html>
+---
+import '../styles/global.css';
+const { title } = Astro.props;
+---
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Ranking completo de modelos de IA en español: pruebas de programación, razonamiento, velocidad, precios y más. Datos de Artificial Analysis, SWE-bench, GPQA y otras fuentes independientes." />
+    <meta name="keywords" content="IA, modelos de IA, ranking, benchmark, SWE-bench, GPQA, Claude, GPT, Gemini, DeepSeek, programación, razonamiento" />
+    <meta property="og:title" content="Ranking de Modelos de IA" />
+    <meta property="og:description" content="Comparativa completa de 40+ modelos de IA: pruebas, precios, velocidad y más. Datos de fuentes independientes." />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_ES" />
+    <meta name="theme-color" content="#0A0A0A" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title || 'Ranking de Modelos de IA'}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body class="min-h-screen">
+    <slot />
+  </body>
+</html>

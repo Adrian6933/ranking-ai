@@ -1,0 +1,81 @@
+---
+import AppLayout from '../layouts/AppLayout.astro';
+import FullRanking from '../components/FullRanking';
+import Heatmap from '../components/Heatmap';
+import models from '../data/models.json';
+---
+
+<AppLayout title="Ranking completo — Ranking IA" description="Tabla completa de todos los modelos de IA ordenados por puntuación compuesta. Filtra, ordena y busca.">
+  <section class="fade-in">
+    <h2 class="section-title text-2xl font-bold text-gold font-mono tracking-wider mb-8 uppercase" data-i18n="ranking_h2">Ranking completo</h2>
+
+    <div class="flex gap-2 mb-6">
+      <button id="btn-table" class="ranking-toggle-btn active" onclick="toggleView('table')" data-i18n="ranking_tabla">📊 Tabla</button>
+      <button id="btn-heatmap" class="ranking-toggle-btn" onclick="toggleView('heatmap')" data-i18n="ranking_heatmap">🔥 Mapa de calor</button>
+    </div>
+
+    <div id="ranking-table">
+      <FullRanking data={models} client:visible />
+    </div>
+    <div id="ranking-heatmap" class="hidden">
+      <Heatmap data={models} client:visible />
+    </div>
+  </section>
+</AppLayout>
+
+<script is:inline>
+  function toggleView(view) {
+    var table = document.getElementById('ranking-table');
+    var heatmap = document.getElementById('ranking-heatmap');
+    var btnT = document.getElementById('btn-table');
+    var btnH = document.getElementById('btn-heatmap');
+    if (view === 'heatmap') {
+      table.classList.add('hidden');
+      heatmap.classList.remove('hidden');
+      btnT.classList.remove('active');
+      btnH.classList.add('active');
+    } else {
+      table.classList.remove('hidden');
+      heatmap.classList.add('hidden');
+      btnT.classList.add('active');
+      btnH.classList.remove('active');
+    }
+  }
+</script>
+
+<script>
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { rootMargin: '0px 0px -10% 0px' }
+  );
+  document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
+</script>
+
+<style>
+  .ranking-toggle-btn {
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    border: 1px solid var(--color-dark-border);
+    background: var(--color-dark-card);
+    color: var(--color-gray-text);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .ranking-toggle-btn.active {
+    color: var(--color-gold);
+    border-color: var(--color-gold);
+    background: rgba(245, 197, 24, 0.1);
+  }
+  .ranking-toggle-btn:hover {
+    border-color: var(--color-gold);
+  }
+</style>

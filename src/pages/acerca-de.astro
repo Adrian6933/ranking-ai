@@ -1,0 +1,85 @@
+---
+import AppLayout from '../layouts/AppLayout.astro';
+---
+
+<AppLayout title="Acerca de — Ranking IA" description="Sobre el proyecto Ranking IA: metodología, fuentes, frecuencia de actualización y limitaciones.">
+  <section class="fade-in max-w-3xl">
+    <h2 class="section-title text-2xl font-bold text-gold font-mono tracking-wider mb-8 uppercase" data-i18n="acerca_h2">Acerca de</h2>
+
+    <div class="space-y-6">
+      <div class="rounded-lg border border-dark-border bg-dark-card/50 p-6">
+        <h3 class="text-gold text-sm font-mono font-bold uppercase tracking-wider mb-3">// <span data-i18n="acerca_que_title">Qué es</span></h3>
+        <p class="text-gray-light text-sm font-light leading-relaxed" data-i18n="acerca_que_desc">
+          Ranking IA es una comparativa independiente de modelos de lenguaje. Recopila datos de múltiples fuentes
+          públicas y los presenta en español con una fórmula de puntuación transparente y ajustable.
+          No hay intereses comerciales ni patrocinios de ningún proveedor.
+        </p>
+      </div>
+
+      <div class="rounded-lg border border-dark-border bg-dark-card/50 p-6">
+        <h3 class="text-gold text-sm font-mono font-bold uppercase tracking-wider mb-3">// <span data-i18n="acerca_metodo_title">Metodología de recopilación</span></h3>
+        <p class="text-gray-light text-sm font-light leading-relaxed" data-i18n="acerca_metodo_desc">
+          Los datos se extraen de fuentes independientes (Artificial Analysis, SWE-bench, LMArena, LiveBench,
+          Terminal-Bench, GPQA Diamond, SciCode) y se cruzan con la documentación oficial de cada proveedor
+          para precios, contexto y licencias. Cuando un dato no está disponible, se deja como nulo y se penaliza
+          la confianza del modelo en la puntuación compuesta.
+        </p>
+      </div>
+
+      <div class="rounded-lg border border-dark-border bg-dark-card/50 p-6">
+        <h3 class="text-gold text-sm font-mono font-bold uppercase tracking-wider mb-3">// <span data-i18n="acerca_freq_title">Frecuencia de actualización</span></h3>
+        <p class="text-gray-light text-sm font-light leading-relaxed" data-i18n="acerca_freq_desc">
+          Los datos se revisan mensualmente. La fecha de la última revisión aparece en el hero y en el footer.
+          Los modelos nuevos se añaden cuando hay datos suficientes de al menos 3 benchmarks independientes.
+        </p>
+      </div>
+
+      <div class="rounded-lg border border-dark-border bg-dark-card/50 p-6">
+        <h3 class="text-gold text-sm font-mono font-bold uppercase tracking-wider mb-3">// <span data-i18n="acerca_limit_title">Limitaciones</span></h3>
+        <ul class="text-gray-light text-sm font-light leading-relaxed space-y-2 list-disc list-inside">
+          <li data-i18n="acerca_limit_1">Los benchmarks no capturan toda la capacidad de un modelo (creatividad, estilo, tono).</li>
+          <li data-i18n="acerca_limit_2">Los precios pueden cambiar sin previo aviso. Verifica siempre en la fuente oficial.</li>
+          <li data-i18n="acerca_limit_3">La velocidad depende del proveedor y puede variar por región y carga.</li>
+          <li data-i18n="acerca_limit_4">El ranking es una guía, no una verdad absoluta. El mejor modelo depende de tu caso de uso.</li>
+        </ul>
+      </div>
+
+      <div class="rounded-lg border border-dark-border bg-dark-card/50 p-6">
+        <h3 class="text-gold text-sm font-mono font-bold uppercase tracking-wider mb-3">// <span data-i18n="acerca_fuentes_title">Fuentes</span></h3>
+        <ul class="text-gray-light text-sm font-light leading-relaxed space-y-1.5">
+          <li><span class="text-gold">·</span> Artificial Analysis — artificialanalysis.ai</li>
+          <li><span class="text-gold">·</span> SWE-bench — swebench.com</li>
+          <li><span class="text-gold">·</span> LMArena / Chatbot Arena — lmarena.ai</li>
+          <li><span class="text-gold">·</span> LiveBench — livebench.ai</li>
+          <li><span class="text-gold">·</span> Terminal-Bench — terminal-bench.com</li>
+          <li><span class="text-gold">·</span> GPQA Diamond — github.com/idavidrein/gpqa</li>
+          <li><span class="text-gold">·</span> SciCode — scicode-eval.com</li>
+          <li><span class="text-gold">·</span> <span data-i18n="acerca_fuentes_docs">Docs oficiales de cada proveedor</span></li>
+        </ul>
+      </div>
+
+      <div class="rounded-lg border border-dark-border bg-dark-card/50 p-6">
+        <h3 class="text-gold text-sm font-mono font-bold uppercase tracking-wider mb-3">// <span data-i18n="acerca_changelog_title">Changelog</span></h3>
+        <div class="space-y-2 text-xs font-mono">
+          <div class="text-gray-light" data-i18n="acerca_changelog_v2"><span class="text-gold">v2.0</span> · jun 2026 — Multi-página, aside, command palette, comparador, calculadoras, favoritos, modo claro</div>
+          <div class="text-gray-light" data-i18n="acerca_changelog_v1"><span class="text-gold">v1.0</span> · jun 2026 — Versión inicial: tabla, gráficas, metodología</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</AppLayout>
+
+<script>
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { rootMargin: '0px 0px -10% 0px' }
+  );
+  document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
+</script>

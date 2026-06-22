@@ -1,0 +1,146 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand colors (theme-independent) */
+  --color-gold: #F5C518;
+  --color-gold-light: #FFD700;
+  --color-gold-dim: #C7A000;
+  --color-green-accent: #00C853;
+  --color-red-accent: #FF1744;
+  --color-blue-accent: #2979FF;
+  --color-purple-accent: #D500F9;
+  --font-mono: "JetBrains Mono", "Fira Code", "Consolas", monospace;
+  --font-sans: "Inter", system-ui, sans-serif;
+
+  /* Semantic colors (overridden by [data-theme]) */
+  --color-dark: #0A0A0A;
+  --color-dark-card: #141414;
+  --color-dark-border: #1E1E1E;
+  --color-gray-text: #888888;
+  --color-gray-light: #AAAAAA;
+  --color-fg: #FFFFFF;
+  --color-bg: #0A0A0A;
+  --color-hover: rgba(255, 255, 255, 0.04);
+}
+
+:root[data-theme="light"] {
+  --color-dark: #FAFAFA;
+  --color-dark-card: #FFFFFF;
+  --color-dark-border: #E0E0E0;
+  --color-gray-text: #666666;
+  --color-gray-light: #999999;
+  --color-fg: #111111;
+  --color-bg: #FAFAFA;
+  --color-hover: rgba(0, 0, 0, 0.04);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 70px;
+  background-color: var(--color-bg);
+  color: var(--color-gray-light);
+}
+
+body {
+  background-color: var(--color-bg);
+  background-image: radial-gradient(circle, var(--color-dot-pattern, rgba(255, 255, 255, 0.03)) 1px, transparent 1px);
+  background-size: 20px 20px;
+  font-family: var(--font-sans);
+}
+
+:root[data-theme="light"] {
+  --color-dot-pattern: rgba(0, 0, 0, 0.04);
+}
+
+.section-title::before {
+  content: "// ";
+  color: #F5C518;
+}
+
+code, .font-mono {
+  font-family: var(--font-mono);
+}
+
+.card-l-corner {
+  position: relative;
+}
+
+.card-l-corner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  border-top: 2px solid #F5C518;
+  border-left: 2px solid #F5C518;
+}
+
+.card-l-corner::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 16px;
+  height: 16px;
+  border-bottom: 2px solid #F5C518;
+  border-right: 2px solid #F5C518;
+}
+
+.tier-s { background: linear-gradient(135deg, rgba(245, 197, 24, 0.15), transparent); border-left: 3px solid #F5C518; }
+.tier-a { background: linear-gradient(135deg, rgba(0, 200, 83, 0.1), transparent); border-left: 3px solid #00C853; }
+.tier-b { background: linear-gradient(135deg, rgba(41, 121, 255, 0.08), transparent); border-left: 3px solid #2979FF; }
+.tier-c { background: linear-gradient(135deg, rgba(136, 136, 136, 0.06), transparent); border-left: 3px solid #888888; }
+.tier-d { background: linear-gradient(135deg, rgba(255, 23, 68, 0.06), transparent); border-left: 3px solid #666666; }
+.tier-f { background: linear-gradient(135deg, rgba(255, 23, 68, 0.04), transparent); border-left: 3px solid #444444; }
+
+.tier-badge-s { background: #F5C518; color: #0A0A0A; }
+.tier-badge-a { background: #00C853; color: #0A0A0A; }
+.tier-badge-b { background: #2979FF; color: #fff; }
+.tier-badge-c { background: #555555; color: #aaa; }
+.tier-badge-d { background: #333333; color: #777; }
+.tier-badge-f { background: #1A1A1A; color: #555; }
+
+:root[data-theme="light"] .tier-badge-c { background: #aaa; color: #fff; }
+:root[data-theme="light"] .tier-badge-d { background: #888; color: #fff; }
+:root[data-theme="light"] .tier-badge-f { background: #ccc; color: #666; }
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-dark-border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gray-text);
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .fade-in {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

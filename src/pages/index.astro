@@ -1,11 +1,57 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import AppLayout from '../layouts/AppLayout.astro';
+import Hero from '../components/Hero';
+import ModelHighlights from '../components/ModelHighlights';
+import models from '../data/models.json';
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<AppLayout title="Ranking de Modelos de IA — Comparativa completa">
+  <Hero client:load />
+
+  <section class="mt-12 fade-in">
+    <h2 class="section-title text-2xl font-bold text-gold font-mono tracking-wider mb-8 uppercase" data-i18n="index_destacados">Destacados</h2>
+    <ModelHighlights data={models} client:load />
+  </section>
+
+  <section class="mt-16 fade-in">
+    <h2 class="section-title text-2xl font-bold text-gold font-mono tracking-wider mb-6 uppercase" data-i18n="index_explora">Explora</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <a href="/ranking" class="rounded-lg border border-dark-border bg-dark-card/50 hover:border-gold/40 transition-colors p-5 group">
+        <div class="text-gold font-mono font-bold text-sm group-hover:text-gold-light transition-colors">📊 RANKING</div>
+        <div class="text-gray-text text-xs font-mono mt-1" data-i18n="index_ranking_card">Tabla completa ordenable y filtrable</div>
+      </a>
+      <a href="/graficas" class="rounded-lg border border-dark-border bg-dark-card/50 hover:border-gold/40 transition-colors p-5 group">
+        <div class="text-gold font-mono font-bold text-sm group-hover:text-gold-light transition-colors">📈 GRÁFICAS</div>
+        <div class="text-gray-text text-xs font-mono mt-1" data-i18n="index_graficas_card">Coste, velocidad, contexto y más</div>
+      </a>
+      <a href="/comparar" class="rounded-lg border border-dark-border bg-dark-card/50 hover:border-gold/40 transition-colors p-5 group">
+        <div class="text-gold font-mono font-bold text-sm group-hover:text-gold-light transition-colors">⚖️ COMPARAR</div>
+        <div class="text-gray-text text-xs font-mono mt-1" data-i18n="index_comparar_card">2-4 modelos lado a lado</div>
+      </a>
+      <a href="/calculadoras" class="rounded-lg border border-dark-border bg-dark-card/50 hover:border-gold/40 transition-colors p-5 group">
+        <div class="text-gold font-mono font-bold text-sm group-hover:text-gold-light transition-colors">🧮 CALCULADORAS</div>
+        <div class="text-gray-text text-xs font-mono mt-1" data-i18n="index_calc_card">Coste mensual, contexto, velocidad</div>
+      </a>
+    </div>
+  </section>
+
+  <footer class="mt-20 pb-8 text-center text-gray-text font-mono text-sm">
+    <p data-i18n="index_footer1">// Datos contrastados con Artificial Analysis, SWE-bench, LMArena, LiveBench, Terminal-Bench, GPQA Diamond, SciCode y docs oficiales</p>
+    <p class="mt-1" data-i18n="index_footer2">// Pulsa ⌘K para buscar · revisado junio 2026</p>
+  </footer>
+</AppLayout>
+
+<script>
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { rootMargin: '0px 0px -10% 0px' }
+  );
+  document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
+</script>

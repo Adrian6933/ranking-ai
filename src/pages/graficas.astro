@@ -1,0 +1,63 @@
+---
+import AppLayout from '../layouts/AppLayout.astro';
+import TierList from '../components/TierList';
+import ScatterPlot from '../components/ScatterPlot';
+import SpeedChart from '../components/SpeedChart';
+import PricingComparison from '../components/PricingComparison';
+import ContextComparison from '../components/ContextComparison';
+import ProviderDistribution from '../components/ProviderDistribution';
+import EvolutionTimeline from '../components/EvolutionTimeline';
+import models from '../data/models.json';
+---
+
+<AppLayout title="Gráficas — Ranking IA" description="Visualizaciones interactivas: coste vs rendimiento, velocidad, precios, contexto, evolución y más.">
+  <section id="tier-list" class="fade-in">
+    <h2 class="section-title text-2xl font-bold text-gold font-mono tracking-wider mb-8 uppercase" data-i18n="graficas_tier">Lista por niveles</h2>
+    <TierList data={models} client:load />
+  </section>
+
+  <section id="cost-performance" class="mt-24 fade-in">
+    <h2 class="section-title text-2xl font-bold text-gold font-mono tracking-wider mb-8 uppercase" data-i18n="graficas_cost">Coste vs rendimiento</h2>
+    <ScatterPlot data={models} client:load />
+  </section>
+
+  <section id="speed" class="mt-24 fade-in">
+    <h2 class="section-title text-2xl font-bold text-gold font-mono tracking-wider mb-8 uppercase" data-i18n="graficas_speed">Velocidad (tokens/s)</h2>
+    <SpeedChart data={models} client:load />
+  </section>
+
+  <section id="pricing" class="mt-24 fade-in">
+    <h2 class="section-title text-2xl font-bold text-gold font-mono tracking-wider mb-8 uppercase" data-i18n="graficas_pricing">Comparativa de precios</h2>
+    <PricingComparison data={models} client:load />
+  </section>
+
+  <section id="context" class="mt-24 fade-in">
+    <h2 class="section-title text-2xl font-bold text-gold font-mono tracking-wider mb-8 uppercase" data-i18n="graficas_context">Ventana de contexto</h2>
+    <ContextComparison data={models} client:load />
+  </section>
+
+  <section id="providers" class="mt-24 fade-in">
+    <h2 class="section-title text-2xl font-bold text-gold font-mono tracking-wider mb-8 uppercase" data-i18n="graficas_providers">Proveedores</h2>
+    <ProviderDistribution data={models} client:load />
+  </section>
+
+  <section id="evolution" class="mt-24 mb-24 fade-in">
+    <h2 class="section-title text-2xl font-bold text-gold font-mono tracking-wider mb-8 uppercase" data-i18n="graficas_evolution">Evolución</h2>
+    <EvolutionTimeline data={models} client:load />
+  </section>
+</AppLayout>
+
+<script>
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { rootMargin: '0px 0px -10% 0px' }
+  );
+  document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
+</script>

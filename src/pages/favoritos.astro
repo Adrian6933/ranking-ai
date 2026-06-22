@@ -1,0 +1,27 @@
+---
+import AppLayout from '../layouts/AppLayout.astro';
+import FavoritesList from '../components/FavoritesList';
+import models from '../data/models.json';
+---
+
+<AppLayout title="Favoritos — Ranking IA" description="Tus modelos favoritos guardados.">
+  <section class="fade-in">
+    <h2 class="section-title text-2xl font-bold text-gold font-mono tracking-wider mb-8 uppercase" data-i18n="favoritos_h2">Favoritos</h2>
+    <FavoritesList allModels={models} client:load />
+  </section>
+</AppLayout>
+
+<script>
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { rootMargin: '0px 0px -10% 0px' }
+  );
+  document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
+</script>
